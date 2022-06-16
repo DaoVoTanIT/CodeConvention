@@ -1,23 +1,26 @@
 # Code convention
 ## Back-end
-### Quy tắc đặt tên Method, Property, Class
-- Không được sử dụng magic number trong code.
+:white_check_mark: Không được sử dụng magic number trong code.
+---
 ```diff
 data1
 data2
 foo_2
 ```
-- Tên class phải đặt theo chuẩn: (Tên Module + tên file).
+:white_check_mark: Tên class phải đặt theo chuẩn: (Tên Module + tên file).
+---
 ```diff
 inventory_receiving_repo
 inventory_receivingController
 inventory_receiving_part
 ```
-- Tên biến, method phải đặt theo chuẩn snake-case, mô tả đầy đủ chức năng method theo tiếng anh.
+:white_check_mark: Tên biến, method phải đặt theo chuẩn snake-case, mô tả đầy đủ chức năng method theo tiếng anh.
+---
 ```diff
 caculate_inventory()
 ```
-- File code phải đặt theo đúng folder, và chức năng và theo tầng (service, repository, controller, database, partial) và có prefix là tên module.
+:white_check_mark: File code phải đặt theo đúng folder, và chức năng và theo tầng (service, repository, controller, database, partial) và có prefix là tên module.
+---
 ```diff
 inventory_receiving_repo
 inventory_receivingController
@@ -27,7 +30,8 @@ maintenance_receiving_repo
 maintenance_receivingController
 maintenance_receiving_part
 ```
-- Bắt buộc phải có HTTP Method (GET, PUT, DELETE, PATCH, POST)cho mỗi action trong controller.
+:white_check_mark: Bắt buộc phải có HTTP Method (GET, PUT, DELETE, PATCH, POST)cho mỗi action trong controller.
+---
 ```
 [HttpPost]
 public IActionResult widget_on_Week([FromBody] JObject json)
@@ -37,8 +41,10 @@ public IActionResult widget_on_Week([FromBody] JObject json)
     return Json(model);
 }
 ```
-- Nếu function có thể viết bất đồng bộ thì bắt buộc phải sử dụng async.
-- Khi khai báo entity (Database) thì buộc phải có annotion trên mỗi column.
+:white_check_mark: Nếu function có thể viết bất đồng bộ thì bắt buộc phải sử dụng async.
+---
+:white_check_mark: Khi khai báo entity (Database) thì buộc phải có annotion trên mỗi column.
+---
 ```
 [Table("maintenance_system_device_group")]
 public class maintenance_system_device_group_db
@@ -65,21 +71,32 @@ public class maintenance_system_device_group_db
 
 }
 ```
-- Không được sử dụng type "dynamic" khi không cần thiết, muốn sử dụng thì phải xin phép trước.
+:white_check_mark: Không được sử dụng type "dynamic" khi không cần thiết, muốn sử dụng thì phải xin phép trước.
+---
 ## Front-end
-- Bắt buộc không được sử dụng any, nếu sử dụng sẽ bị kiểm điểm.
-- Bắt buộc phải khai báo type từ phía back-end theo kiểu snake-case.
-- Toàn bộ function, variable bắt buộc đều phải khai báo có type và đặt tên theo camel-case.
-- Khai báo type phải cùng folder với trang sử dụng type
-- Không được duplicate type, nếu duplicate sẽ bị kiểm điểm.
-- Tên component, popup phải đặt theo chuẩn. (tên trang + Component)(tên trang + popUpAddComponent)
+:white_check_mark: Bắt buộc không được sử dụng any, nếu sử dụng sẽ bị kiểm điểm.
+---
+:white_check_mark: Bắt buộc phải khai báo type từ phía back-end theo kiểu snake-case.
+---
+:white_check_mark: Toàn bộ function, variable bắt buộc đều phải khai báo có type và đặt tên theo camel-case.
+---
+:white_check_mark: Khai báo type phải cùng folder với trang sử dụng type.
+---
+:white_check_mark: Không được duplicate type, nếu duplicate sẽ bị kiểm điểm.
+---
+:white_check_mark: Tên component, popup phải đặt theo chuẩn. (tên trang + Component)(tên trang + popUpAddComponent).
 ```
 class inventory_process_transfer_indexComponent
 class inventory_process_transfer_popUpAddComponent
 class inventory_process_transfer_popUpEditComponent
 class inventory_process_transfer_popUpViewComponent
 ```
-- Trang tạo mới sẽ tối thiểu có 2 file index.component.ts, index.component.html
-- Những tính toán liên quan thời gian thì sử dụng thư viện moment js, hạn chế sử dụng Date()
-- Data truyền vào popup bắt buộc phải có type.
-- Tất cả đều phải viết bằng Tailwind CSS, không được sử dụng attribute style trong file html, nếu muốn sử dụng thì phải báo trước.
+:white_check_mark: Trang tạo mới sẽ tối thiểu có 2 file index.component.ts, index.component.html.
+---
+:white_check_mark: Những tính toán liên quan thời gian thì sử dụng thư viện moment js, hạn chế sử dụng Date().
+---
+---
+:white_check_mark: Data truyền vào popup bắt buộc phải có type.
+---
+:white_check_mark: Tất cả đều phải viết bằng Tailwind CSS, không được sử dụng attribute style trong file html, nếu muốn sử dụng thì phải báo trước.
+---
