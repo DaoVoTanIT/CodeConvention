@@ -103,3 +103,22 @@ class inventory_process_transfer_popUpViewComponent
 ---
 :white_check_mark: Tất cả đều phải viết bằng Tailwind CSS, không được sử dụng attribute style trong file html, nếu muốn sử dụng thì viết riêng ra file scss riêng.
 ---
+##  :Mobile-App
+:white_check_mark: Tất cả đều phải đặt tên theo camel-case.
+---
+:white_check_mark: Đặt đúng chức năng của tên function, .
+---
+:white_check_mark: Tất cả đều phải khai báo type như hình (Sử dụng ? để tránh require field khi code).
+---
+![image](https://user-images.githubusercontent.com/64943142/174035138-79a241dd-ba64-4002-b0c5-832ce4ddcbc1.png)
+![image](https://user-images.githubusercontent.com/64943142/174035841-c74cad0c-cca8-4c7c-a0e7-f25638c6d0dd.png)
+
+
+---
+:white_check_mark: Tách riêng API thành file riêng và để sử dụng lại nhiều nhất có thể.
+---
+:white_check_mark: Không code chung API với Widget.
+---
+:white_check_mark: Hạn chế sử dụng type dynamic.
+---
+
