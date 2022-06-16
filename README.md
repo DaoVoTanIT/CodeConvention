@@ -76,7 +76,7 @@ public class maintenance_system_device_group_db
 ---
 ##  :star2:Front-end
 ---
-:white_check_mark: Bắt buộc không được sử dụng any, nếu sử dụng sẽ bị kiểm điểm.
+:white_check_mark: Không được sử dụng any, nếu sử dụng sẽ bị kiểm điểm.
 ---
 :white_check_mark: Bắt buộc phải khai báo type từ phía back-end theo kiểu snake-case.
 ---
@@ -100,5 +100,5 @@ class inventory_process_transfer_popUpViewComponent
 ---
 :white_check_mark: Data truyền vào popup bắt buộc phải có type.
 ---
-:white_check_mark: Tất cả đều phải viết bằng Tailwind CSS, không được sử dụng attribute style trong file html, nếu muốn sử dụng thì phải báo trước.
+:white_check_mark: Tất cả đều phải viết bằng Tailwind CSS, không được sử dụng attribute style trong file html, nếu muốn sử dụng thì viết riêng ra file scss riêng.
 ---
