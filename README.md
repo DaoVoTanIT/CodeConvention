@@ -87,6 +87,7 @@ public class maintenance_system_device_group_db
 :white_check_mark: Không được duplicate type, nếu duplicate sẽ bị kiểm điểm.
 ---
 :white_check_mark: Tên component, popup phải đặt theo chuẩn. (tên trang + Component)(tên trang + popUpAddComponent).
+---
 ```
 class inventory_process_transfer_indexComponent
 class inventory_process_transfer_popUpAddComponent
