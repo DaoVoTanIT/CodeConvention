@@ -1,8 +1,9 @@
 # Code convention
-## Back-end
+## :star2:Back-end
+---
 :white_check_mark: Không được sử dụng magic number trong code.
 ---
-```diff
+```
 data1
 data2
 foo_2
@@ -73,7 +74,8 @@ public class maintenance_system_device_group_db
 ```
 :white_check_mark: Không được sử dụng type "dynamic" khi không cần thiết, muốn sử dụng thì phải xin phép trước.
 ---
-## Front-end
+##  :star2:Front-end
+---
 :white_check_mark: Bắt buộc không được sử dụng any, nếu sử dụng sẽ bị kiểm điểm.
 ---
 :white_check_mark: Bắt buộc phải khai báo type từ phía back-end theo kiểu snake-case.
