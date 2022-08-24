@@ -159,46 +159,46 @@ public string idUnit { get; set; }
 - Viết test case đúng chức năng của một `Action` trong `Controller`.
 - Không sử dụng `decouple` `Action` trong `Controller` trong một Unit test.
 ```csharp
-public class SystemItemTestController
+public class SystemItemTestController : InitHttpContextController<sys_itemController> 
 {
-    private sys_itemController _controller;
-    private techproDefautContext _context;
-    private Mock<IUserService> _userService;
-    private Mock<IServiceScopeFactory> _serviceFactory;
-    public SystemItemTestController()
+
+    public SystemItemTestController() : base()
     {
-        var options = new DbContextOptionsBuilder<techproDefautContext>()
-           .UseInMemoryDatabase(databaseName: "TestDatabase")
-           .Options;
-        _userService = new Mock<IUserService>();
-        _serviceFactory = new Mock<IServiceScopeFactory>();
-        _context = new techproDefautContext(options);
-        _controller = new sys_itemController(_userService.Object, _context, _serviceFactory.Object);
-
+        controller = new sys_itemController(UserService: userService, context: context, serviceFactory: serviceFactory);
     }
-
     [Fact]
     public async Task GetItemByBarcodeAsync_ShouldReturn200Status()
     {
         // Arrange
-        var result = (JsonResult)await _controller.getItemByBarcode("", "");
-        
+        var result = (JsonResult)await controller.getItemByBarcode("", "");
+
         //Assert
         result.StatusCode.Should().NotBe(500);
     }
     [Fact]
-    public async Task DeleteAsync_ShouldReturn200Status()
+    public async Task DeleteAsync_ShouldDeletedAndReturn200Status()
     {
         // Arrange
         var newId = Guid.NewGuid().ToString();
-        await _context.sys_items.AddAsync(new sys_item_db {
+        context.sys_items.Add(new sys_item_db
+        {
             id = newId
         });
-        
-        // Acr
-        var result = _controller.delete(new JObject(new {id = newId}));
-        
+
+        var identity = new GenericIdentity("TestUser", "UnitTest");
+        var contextUser = new ClaimsPrincipal(identity); 
+        controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = contextUser }
+        };
+
+        await context.SaveChangesAsync();
+        // Act
+        var result = controller.delete(JObject.FromObject(new { id = newId }));
+
         // Assert
+        var record = await context.sys_items.Where(d => d.id == newId).SingleOrDefaultAsync();
+        Assert.Equal(expected :2,actual: record?.status_del);
         result.StatusCode.Should().Be(200);
         result.StatusCode.Should().NotBe(500);
     }
