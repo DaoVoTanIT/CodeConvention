@@ -162,9 +162,9 @@ public string idUnit { get; set; }
 public class SystemItemTestController : InitHttpContextController<sys_itemController> 
 {
 
-    public SystemItemTestController() : base()
+    public SystemItemTestController() : base(new DatabaseFixture())
     {
-        controller = new sys_itemController(UserService: userService, context: context, serviceFactory: serviceFactory);
+        controller = new sys_itemController(UserService: userService, context: fixture.context, serviceFactory: serviceFactory);
     }
     [Fact]
     public async Task GetItemByBarcodeAsync_ShouldReturn200Status()
@@ -180,7 +180,7 @@ public class SystemItemTestController : InitHttpContextController<sys_itemContro
     {
         // Arrange
         var newId = Guid.NewGuid().ToString();
-        context.sys_items.Add(new sys_item_db
+        fixture.context.sys_items.Add(new sys_item_db
         {
             id = newId
         });
@@ -192,12 +192,12 @@ public class SystemItemTestController : InitHttpContextController<sys_itemContro
             HttpContext = new DefaultHttpContext { User = contextUser }
         };
 
-        await context.SaveChangesAsync();
+        await fixture.context.SaveChangesAsync();
         // Act
         var result = controller.delete(JObject.FromObject(new { id = newId }));
 
         // Assert
-        var record = await context.sys_items.Where(d => d.id == newId).SingleOrDefaultAsync();
+        var record = await fixture.context.sys_items.Where(d => d.id == newId).SingleOrDefaultAsync();
         Assert.Equal(expected :2,actual: record?.status_del);
         result.StatusCode.Should().Be(200);
         result.StatusCode.Should().NotBe(500);
