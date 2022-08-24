@@ -280,7 +280,7 @@ import { inventory_report_position_map_indexComponent } from "./inventory_report
 
 - Bắt buộc sử dụng `Tailwind CSS`, hạn chế sử dụng css thuần.
 
-## Quy tắc commnent
+## Quy tắc comment
 
 - Mô tả nội dung của `function`, `variable` theo như mẫu
 
