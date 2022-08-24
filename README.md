@@ -154,7 +154,56 @@ public int? id {get; set;}
 [MaxLength(128)]
 public string idUnit { get; set; }
 ```
+## Quy tắc viết Unit Test
+- Mỗi `Action` trong `Controller` bắt buộc phải có ít nhất 1 `Unit test`.
+- Viết test case đúng chức năng của một `Action` trong `Controller`.
+- Không sử dụng `decouple` `Action` trong `Controller` trong một Unit test.
+```csharp
+public class SystemItemTestController
+{
+    private sys_itemController _controller;
+    private techproDefautContext _context;
+    private Mock<IUserService> _userService;
+    private Mock<IServiceScopeFactory> _serviceFactory;
+    public SystemItemTestController()
+    {
+        var options = new DbContextOptionsBuilder<techproDefautContext>()
+           .UseInMemoryDatabase(databaseName: "TestDatabase")
+           .Options;
+        _userService = new Mock<IUserService>();
+        _serviceFactory = new Mock<IServiceScopeFactory>();
+        _context = new techproDefautContext(options);
+        _controller = new sys_itemController(_userService.Object, _context, _serviceFactory.Object);
 
+    }
+
+    [Fact]
+    public async Task GetItemByBarcodeAsync_ShouldReturn200Status()
+    {
+        // Arrange
+        var result = (JsonResult)await _controller.getItemByBarcode("", "");
+        
+        //Assert
+        result.StatusCode.Should().NotBe(500);
+    }
+    [Fact]
+    public async Task DeleteAsync_ShouldReturn200Status()
+    {
+        // Arrange
+        var newId = Guid.NewGuid().ToString();
+        await _context.sys_items.AddAsync(new sys_item_db {
+            id = newId
+        });
+        
+        // Acr
+        var result = _controller.delete(new JObject(new {id = newId}));
+        
+        // Assert
+        result.StatusCode.Should().Be(200);
+        result.StatusCode.Should().NotBe(500);
+    }
+}
+```
 ## Quy tắc khác
 
 - Khi `method` bị khai báo quá 3 lần thì nên viết lại tại `Helpers`
