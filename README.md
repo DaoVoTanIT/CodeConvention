@@ -2,7 +2,7 @@
 
 ## UpperCamelCase Case
 
-Sử dụng khi đặt tên class, record, hoặc struct.
+Sử dụng khi đặt tên `class`, `record`, hoặc `struct`.
 
 ```csharp
 public class DataService
@@ -79,7 +79,7 @@ public class DataService
 }
 ```
 
-Sử dụng với arguments của method, sử dụng camel case.
+Sử dụng với `arguments` của `method`, sử dụng `lowerCamelCase`.
 
 ```csharp
 public T SomeMethod<T>(int someNumber, bool isValid)
@@ -107,7 +107,7 @@ DoSomething(foo: "someString", bar: 1);
 ## Quy tắc comment
 
 - Sử dụng `///` để mô tả chức năng của field. (VS Code Extension).
-- Đối với method cần mô tả thêm ý nghĩa có giá trị trả về (nếu có)
+- Đối với `method` cần mô tả thêm ý nghĩa có giá trị trả về (nếu có)
 
 ```csharp
 /// <summary>
@@ -137,18 +137,18 @@ public async Task<int> update(sys_help_model model)
 
 ## Quy tắc liên quan EF
 
-- Nên sử dụng async Task nếu có thể.
+- Nên sử dụng `async` `Task` nếu có thể.
 - Phần xử lý logic liên quan đến database bắt buộc viết tại Repository Layer.
 - Sử dụng `[MaxLength(128)]` đối với column ID.
 - Sử dụng `[MaxLength(200)]` đối với column Name.
 - Sử dụng `[MaxLength(500)]` đối với column Note.
-- Bắt buộc thêm nullable đối với column (trừ primary key).
+- Bắt buộc thêm `nullable` đối với column (trừ primary key).
 
 ```csharp
 public int? id {get; set;}
 ```
 
-- Bắt buộc phải khai báo type của field khi tạo DB mới
+- Bắt buộc phải khai báo `type` của `field` khi tạo DB mới
 
 ```csharp
 [MaxLength(128)]
@@ -158,8 +158,8 @@ public string idUnit { get; set; }
 ## Quy tắc khác
 
 - Khi `method` bị khai báo quá 3 lần thì nên viết lại tại `Helpers`
-- Đặt tên file theo UpperCamelCase và có suffix (Repo, Model, Part, Controller, Db)
-- Đặt tên file theo UpperCamelCase và có prefix là tên Module
+- Đặt tên file theo `UpperCamelCase` và có suffix (`Repo`, `Model`, `Part`, `Controller`, `Db`)
+- Đặt tên file theo `UpperCamelCase` và có prefix là tên Module
 
 ```csharp
 SysItemRepo.cs
@@ -228,7 +228,7 @@ a === b; // Good
 a == b; // Bad
 ```
 
-- Bắt buộc sử dụng arrow function của ES6
+- Bắt buộc sử dụng `arrow function` của ES6
 
 ```typescript
 bar(() => { this.doSomething(); }) // Good
@@ -254,11 +254,11 @@ myPromise.then((v) => {
 ```
 
 - Bắt buộc phải khai báo và sử dụng type (trừ những trường hợp đặc biệt sử dụng `any`)
-- Đặt tên file mới theo đúng cấu trúc (lowerCamelCase)
+- Đặt tên file mới theo đúng cấu trúc (`lowerCamelCase`)
   >
       .
       ├── ...
-      ├── systemItem                  # Tên trang có prefix tên module Sys
+      ├── systemItem                  # Tên trang có prefix tên module system
       │   ├── export.ts               # Export chung của tất cả component trong page
       │   ├── index.component.ts      # Component chính
       │   ├── index.component.html    # Giao diện của component chính
@@ -282,7 +282,7 @@ import { inventory_report_position_map_indexComponent } from "./inventory_report
 
 ## Quy tắc commnent
 
-- Mô tả nội dung của function, variable theo như mẫu
+- Mô tả nội dung của `function`, `variable` theo như mẫu
 
 ```typescript
 /**
@@ -329,14 +329,14 @@ void align(bool clearItems) {
 }
 ```
 
-- Sử dụng single quote
+- Sử dụng `single quote`
 
 ```dart
 var foo = 'bar'; // Good
 var foo = "bar"; // Bad
 ```
 
-- Sắp xếp import đúng thứ tự
+- Sắp xếp `import` đúng thứ tự
 
 ```dart
 import 'dart:async';
@@ -346,7 +346,7 @@ import 'package:bar/bar.dart';
 import 'package:foo/foo.dart';
 ```
 
-- Comment mô tả chức năng của các Functions, Properties.
+- Comment mô tả chức năng của các `Functions`, `Properties`.
 
 ````dart
 /// URL avatar.
