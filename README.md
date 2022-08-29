@@ -1,8 +1,19 @@
 # Coding Convention (C#)
 
 ## UpperCamelCase Case
+- Sử dụng cho đặt tên file.
+- Sử dụng cho public medthods và properties.
+```csharp
+public class DataService
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Address { get; set; }
+}
+```
 
-Sử dụng khi đặt tên `class`, `record`, hoặc `struct`.
+
+- Sử dụng khi đặt tên `class`, `record`, hoặc `struct`.
 
 ```csharp
 public class DataService
@@ -20,7 +31,7 @@ public record PhysicalAddress(
 
 ```csharp
 public struct ValueCoordinate
-{
+{/Users/techpro-mac/QUAN.LY.SAN.XUAT.MES/techpro.zapp/techpro.zapp/ClientApp/src/app/modules/maintenance/maintenance_schedual_system_device
 }
 ```
 
@@ -55,7 +66,17 @@ public class ExampleEvents
     }
 }
 ```
+## UpperCamelCase
+Sử dụng cho các scope variable.
+```csharp
+public async Task<int> Update(SystemHelpModel model)
+{
+    var name  = model.Db.Name;
+    var address  = model.Db.Address;
 
+    return 1;
+}
+```
 ### Camel case
 
 Sử dụng khi `private` hoặc `internal` fields, và thêm prefix `_`.
@@ -115,21 +136,21 @@ DoSomething(foo: "someString", bar: 1);
 /// </summary>
 /// <value></value>
 [MaxLength(128)]
-public string idUnit { get; set; }
+public string IdUnit { get; set; }
 ```
 
 ```csharp
 /// <summary>
 /// Func update record help
 /// </summary>
-/// <param name="model">sys_help_model</param>
+/// <param name="model">SystemHelpModel</param>
 /// <returns>1 if success</returns>
-public async Task<int> update(sys_help_model model)
+public async Task<int> Update(SystemHelpModel model)
 {
-    var db= await _context.sys_helps.Where(d=>d.id ==  model.db.id).FirstOrDefaultAsync();
-    db.name = model.db.name;
-    db.update_by = model.db.update_by;
-    db.update_date = model.db.update_date;
+    var db = await _context.SystemHelps.Where(d => d.Id ==  model.Db.Id).FirstOrDefaultAsync();
+    db.Name = model.Db.Name;
+    db.UpdateBy = model.Db.UpdateBy;
+    db.UpdateDate = model.db.UpdateDate;
     _context.SaveChanges();
     return 1;
 }
@@ -145,26 +166,28 @@ public async Task<int> update(sys_help_model model)
 - Bắt buộc thêm `nullable` đối với column (trừ primary key).
 
 ```csharp
-public int? id {get; set;}
+public int? Id {get; set;}
+public string Name {get; set;}
+public string Address {get; set;}
 ```
 
 - Bắt buộc phải khai báo `type` của `field` khi tạo DB mới
 
 ```csharp
 [MaxLength(128)]
-public string idUnit { get; set; }
+public string IdUnit { get; set; }
 ```
 ## Quy tắc viết Unit Test
 - Mỗi `Action` trong `Controller` bắt buộc phải có ít nhất 1 `Unit test`.
 - Viết test case đúng chức năng của một `Action` trong `Controller`.
 - Không sử dụng `decouple` `Action` trong `Controller` trong một Unit test.
 ```csharp
-public class SystemItemTestController : InitHttpContextController<sys_itemController> 
+public class SystemItemTestController : InitHttpContextController<SystemItemController> 
 {
 
     public SystemItemTestController() : base(new DatabaseFixture())
     {
-        controller = new sys_itemController(UserService: userService, context: fixture.context, serviceFactory: serviceFactory);
+        controller = new sys_itemController(userService: userService, context: fixture.context, serviceFactory: serviceFactory);
     }
     [Fact]
     public async Task GetItemByBarcodeAsync_ShouldReturn200Status()
@@ -182,7 +205,7 @@ public class SystemItemTestController : InitHttpContextController<sys_itemContro
         var newId = Guid.NewGuid().ToString();
         fixture.context.sys_items.Add(new sys_item_db
         {
-            id = newId
+            Id = newId
         });
 
         var identity = new GenericIdentity("TestUser", "UnitTest");
@@ -194,11 +217,11 @@ public class SystemItemTestController : InitHttpContextController<sys_itemContro
 
         await fixture.context.SaveChangesAsync();
         // Act
-        var result = controller.delete(JObject.FromObject(new { id = newId }));
+        var result = controller.delete(JObject.FromObject(new { Id = newId }));
 
         // Assert
-        var record = await fixture.context.sys_items.Where(d => d.id == newId).SingleOrDefaultAsync();
-        Assert.Equal(expected :2,actual: record?.status_del);
+        var record = await fixture.context.SystemItems.Where(d => d.Id == newId).SingleOrDefaultAsync();
+        Assert.Equal(expected :2,actual: record?Istatus_del);
         result.StatusCode.Should().Be(200);
         result.StatusCode.Should().NotBe(500);
     }
@@ -231,9 +254,9 @@ InventoryItemModel.cs
 ///
 ///     POST /Todo
 ///     {
-///        "id": 1,
-///        "name": "Item #1",
-///        "isComplete": true
+///        "Id": 1,
+///        "Name": "Item #1",
+///        "IsComplete": true
 ///     }
 ///
 /// </remarks>
@@ -241,14 +264,14 @@ InventoryItemModel.cs
 [HttpPost]
 [ProducesResponseType(typeof(IEnumerable<CmSelectStringModel>),StatusCodes.Status200Created)]
 [ProducesResponseType(StatusCodes.Status400BadRequest)]
-public IActionResult getListUse()
+public IActionResult GetListUse()
 {
-    var result = repo._context.sys_helps
-        .Where(d=>d.status_del==1)
+    var result = repo._context.SystemHelps
+        .Where(d=>d.StatusDel==1)
             .Select(d => new CmSelectStringModel
             {
-                id = d.id,
-                name = d.name
+                Id = d.Id,
+                Name = d.Name
             }).ToList();
     return Json(result);
 }
