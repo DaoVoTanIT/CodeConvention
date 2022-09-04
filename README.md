@@ -31,7 +31,7 @@ public record PhysicalAddress(
 
 ```csharp
 public struct ValueCoordinate
-{/Users/techpro-mac/QUAN.LY.SAN.XUAT.MES/techpro.zapp/techpro.zapp/ClientApp/src/app/modules/maintenance/maintenance_schedual_system_device
+{
 }
 ```
 
@@ -127,6 +127,7 @@ DoSomething(foo: "someString", bar: 1);
 
 ## Quy tắc comment
 
+- Những hàm phức tạp cần mô tả rõ chức năng.
 - Sử dụng `///` để mô tả chức năng của field. (VS Code Extension).
 - Đối với `method` cần mô tả thêm ý nghĩa có giá trị trả về (nếu có)
 
@@ -187,7 +188,7 @@ public class SystemItemTestController : InitHttpContextController<SystemItemCont
 
     public SystemItemTestController() : base(new DatabaseFixture())
     {
-        controller = new sys_itemController(userService: userService, context: fixture.context, serviceFactory: serviceFactory);
+        controller = new SystemItemController(userService: userService, context: fixture.context, serviceFactory: serviceFactory);
     }
     [Fact]
     public async Task GetItemByBarcodeAsync_ShouldReturn200Status()
@@ -203,7 +204,7 @@ public class SystemItemTestController : InitHttpContextController<SystemItemCont
     {
         // Arrange
         var newId = Guid.NewGuid().ToString();
-        fixture.context.sys_items.Add(new sys_item_db
+        fixture.context.SystemItems.Add(new SystemItemDb
         {
             Id = newId
         });
@@ -217,11 +218,11 @@ public class SystemItemTestController : InitHttpContextController<SystemItemCont
 
         await fixture.context.SaveChangesAsync();
         // Act
-        var result = controller.delete(JObject.FromObject(new { Id = newId }));
+        var result = controller.Delete(JObject.FromObject(new { Id = newId }));
 
         // Assert
         var record = await fixture.context.SystemItems.Where(d => d.Id == newId).SingleOrDefaultAsync();
-        Assert.Equal(expected :2,actual: record?Istatus_del);
+        Assert.Equal(expected :2,actual: record?StatusDel);
         result.StatusCode.Should().Be(200);
         result.StatusCode.Should().NotBe(500);
     }
