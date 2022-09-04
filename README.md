@@ -1,8 +1,8 @@
 # Coding Convention (C#)
 
-## UpperCamelCase Case
+## UpperCamelCase
 - Sử dụng cho đặt tên file.
-- Sử dụng cho public medthods và properties.
+- Sử dụng cho public methods và properties.
 ```csharp
 public class DataService
 {
