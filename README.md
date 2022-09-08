@@ -240,7 +240,38 @@ SysItemModel.cs
 SysItemPart.cs
 InventoryItemModel.cs
 ```
+```csharp
+/// <summary>
+/// Lấy dữ liệu.
+/// </summary>
+[HttpGet]
 
+
+/// <summary>
+/// Tạo mới dữ liệu.
+/// </summary>
+[HttpPost]
+
+
+/// <summary>
+/// Cập nhật 1 field.
+/// </summary>
+[HttpPatch]
+
+
+/// <summary>
+/// Cập nhật nhiều field.
+/// </summary>
+[HttpPut]
+
+
+/// <summary>
+/// Xóa record.
+/// </summary>
+[HttpDelete]
+
+
+```
 - Controller chỉ chức business logic không tương tác với Database
 - Controller bắt buộc phải có Http Method và cần mô tả chi tiết prams, chức năng của controller
 
