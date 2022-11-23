@@ -66,7 +66,7 @@ public class ExampleEvents
     }
 }
 ```
-## UpperCamelCase
+### UpperCamelCase
 Sử dụng cho các scope variable.
 ```csharp
 public async Task<int> Update(SystemHelpModel model)
@@ -307,8 +307,56 @@ public IActionResult GetListUse()
             }).ToList();
     return Json(result);
 }
+
 ```
 
+## Cấu trúc source .Net + Angular
+- Repository: `Chứa những method cơ bản (CRUD) liên quan đến database`, có thể bổ sung thêm method nếu cần thiết. `Không được viết business logic`.
+- Service: `Chứa những method liên quan đến business logic`, có thể bổ sung thêm method nếu cần thiết. `Giao tiếp trực tiếp với tầng Repository`.
+- Controller: `Sử dụng các method Service`. `Không giao tiếp trực tiếp với Repository`.`Không chứa business logic`.
+```
+    SmartFactory
+    ├── Api
+    │   └── Applications
+    │   │  └── ClientApp                                        # Angular
+    ├── CrossCutting
+    │   ├── CrossCutting.IoC
+    │   │   └── NativeInjector.cs                               # Khai báo DI
+    │   ├── CrossCutting.Bus                               
+    ├── Infrastructure                                      
+    │   ├── Core
+    │   ├── DataAccess
+    │   │   │   ├── Contexts 
+    │   │   │   │   │   ├── SystemDbContext.cs                  # Thêm các bảng của module System
+    │   │   │   │   │   ├── ApplicationDbContext.cs            
+    │   │   │   │   │   └── ...   
+    │   │   │   ├── Databases 
+    │   │   │   │   ├── System 
+    │   │   │   │   │   ├── SystemCommonCodeDb.cs               # Danh sách bảng của database module System
+    │   │   │   │   │   ├── SystemPageItemDb.cs
+    │   │   │   │   │   └── ... 
+    │   │   │   └── ...   
+    ├── Modules  
+    │   ├── Systems                                 
+    │   │   │   ├── Appplication                        
+    │   │   │   │   ├── Controllers 
+    │   │   │   │   │   ├── SystemAccountController.cs          # Controller
+    │   │   │   │   │   └── ...
+    │   │   │   ├── Domain
+    │   │   │   │   ├── Services 
+    │   │   │   │   │   ├── SystemAccountService.cs             # Mỗi Controller sẽ khai báo ít nhất 1 service
+    │   │   │   │   │   └── ...
+    │   │   │   ├── Infrastructure
+    │   │   │   │   ├── Interfaces
+    │   │   │   │   │   ├── ISystemUserRepo.cs                  # Khai báo Interface cho Repository, Service
+    │   │   │   │   │   └── ISystemAccountService.cs
+    │   │   │   │   ├── Models
+    │   │   │   │   │   ├── SystemUserModel.cs                  # Khai báo Model cho module System.
+    │   │   │   │   │   └── SystemGetUserModel.cs
+    │   │   │   │   ├── Repositories
+    │   │   │   │   │   ├── SystemUserRepo.cs                   # Mỗi table (DB) đều có 1 repo riêng.
+    │   └── ...
+```
 # Coding Convention (Typescript)
 
 | Style          | Category                                                           |
@@ -359,15 +407,17 @@ myPromise.then((v) => {
 
 - Bắt buộc phải khai báo và sử dụng type (trừ những trường hợp đặc biệt sử dụng `any`)
 - Đặt tên file mới theo đúng cấu trúc (`lowerCamelCase`)
+- Tên file, folder sẽ đặt theo chuẩn (`kebab-case`)
+- Toàn bộ API phải đặt trong file `index.service.ts`, `Không` được viết trong file component
   >
       .
       ├── ...
-      ├── systemItem                  # Tên trang có prefix tên module system
+      ├── system-item                  # Tên trang có prefix tên module system
       │   ├── export.ts               # Export chung của tất cả component trong page
       │   ├── index.component.ts      # Component chính
       │   ├── index.component.html    # Giao diện của component chính
-      │   ├── popupAdd.component.ts   # Popup component liên quan xem, sửa, xoá
-      │   ├── popupAdd.component.html # Giao diện popup component liên quan xem, sửa, xoá
+      │   ├── popup-add.component.ts   # Popup component liên quan xem, sửa, xoá
+      │   ├── popup-add.component.html # Giao diện popup component liên quan xem, sửa, xoá
       │   ├── types.ts                # Khai báo type cho toàn bộ page
       │   ...
       │   ├── index.service.ts        # Service để cho các component khác sử dụng
