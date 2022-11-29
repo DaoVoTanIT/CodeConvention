@@ -1,3 +1,27 @@
+# Cách đặt tên commmit
+Link tham khảo(https://viblo.asia/p/lam-the-nao-de-viet-conventional-commits-cho-de-su-dung-07LKXbb2lV4)
+Các thành phần type, description là bắt buộc cần có trong commit message, optional là tùy chọn có hoặc không có cũng được
+- type: từ khóa để phân loại commit là feature, fix bug, refactor.
+- scope: cũng được dùng để phân loại commit, vùng ảnh hưởng của commit, trả lời câu hỏi: commit này refactor|fix cái gì? được đặt trong cặp ngoặc đơn ngay sau type. VD: feat(authentication):, fix(parser):
+- description: là mô tả ngắn về những gì sẽ bị sửa đổi trong commit đấy
+- body: là mô tả dài và chi tiết hơn, cần thiết khi description chưa thể nói rõ hết được, có thể thêm phần ghi chú bằng các keyword
+- footer: một số thông tin mở rộng như số ID của pull request, issue.. được quy định theo conventional
+```
+<type>[optional scope]: [<jira-task-id>] <description>
+
+[optional body]
+
+[optional footer]
+```
+Example 
+```
+feat: [TSW-223] add validate of A feature
+
+fĩx: [TSW-223] fix die dashboard page
+
+feat(feature_a): [TSW-223] add validate of A1 feature
+
+```
 # Coding Convention (C#)
 
 ## UpperCamelCase
