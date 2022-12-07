@@ -17,7 +17,7 @@ Example
 ```
 feat: [TSW-223] add validate of A feature
 
-fĩx: [TSW-223] fix die dashboard page
+fix: [TSW-223] fix die dashboard page
 
 feat(feature_a): [TSW-223] add validate of A1 feature
 
