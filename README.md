@@ -536,7 +536,28 @@ import 'package:foo/foo.dart';
 /// ABC XYZ.
 String? avatarPath;
 ````
+### Bloc
 
+##### Bloc Events
+
+- Start with verb 
+- End with suffix **Event**
+
+Example:
+```
+- ToDosEvent
+- LoadToDosEvent
+- DeleteToDoEvent
+```
+
+##### Bloc States
+
+Example:
+```
+- Loading
+- Loaded
+- LoadFailed
+```
 ## Cấu trúc source
 
 >
